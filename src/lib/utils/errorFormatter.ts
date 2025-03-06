@@ -11,6 +11,6 @@ export const errorFormatter = (error: any) => {
     case 400:
       return API_ERROR[400]
     default:
-      return `${API_ERROR[400]} ${error.status}).`
+      return `${API_ERROR['DEFAULT']} ${error.status}).`
   }
 }

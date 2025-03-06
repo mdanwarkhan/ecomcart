@@ -3,8 +3,8 @@ import { LoaderContainer, Spinner } from './Loader.style'
 
 const Loader: React.FC = () => {
   return (
-    <LoaderContainer>
-      <Spinner />
+    <LoaderContainer data-testid="loader-container">
+      <Spinner data-testid="spinner" />
     </LoaderContainer>
   )
 }

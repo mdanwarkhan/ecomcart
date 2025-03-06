@@ -45,6 +45,7 @@ export const LOGIN = {
   HEADER: 'Log in:',
   EMAIL_LABEL: 'Email:',
   EMAIL_PLACEHOLDER: 'Enter your email',
+  EMAIL_PATTERN: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   EMAIL_ERROR_REQUIRED: 'Email is required',
   EMAIL_ERROR_INVALID: 'Enter valid email',
   PASSWORD_LABEL: 'Password:',

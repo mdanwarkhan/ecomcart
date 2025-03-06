@@ -40,7 +40,7 @@ export const InputField = styled.input`
   }
 `
 
-export const ErrorMessage = styled.div`
+export const ErrorMessage = styled.p`
   color: red;
   margin-top: -15px;
   font-size: 14px;

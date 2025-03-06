@@ -1,56 +1,60 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
 import Login from './Login'
-import useAuth from '../../lib/hooks/useAuth'
 import { BUTTON, LOGIN } from '../../lib/constants'
+import useAuth from '../../lib/hooks/useAuth'
 
 jest.mock('../../lib/hooks/useAuth')
 
-describe('Login Component', () => {
-  const mockLogin = jest.fn()
+const mockLogin = jest.fn()
 
+describe('Login Component', () => {
   beforeEach(() => {
     (useAuth as jest.Mock).mockReturnValue({ login: mockLogin })
   })
 
-  beforeEach(() => {
-    render(
-      <MemoryRouter>
-        <Login />
-      </MemoryRouter>
-    )
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   test('renders login form', () => {
+
     expect(screen.getByText(LOGIN.HEADER)).toBeInTheDocument()
     expect(screen.getByLabelText(LOGIN.EMAIL_LABEL)).toBeInTheDocument()
     expect(screen.getByLabelText(LOGIN.PASSWORD_LABEL)).toBeInTheDocument()
     expect(screen.getByText(BUTTON.LOGIN_BUTTON)).toBeInTheDocument()
   })
 
-  test('shows error messages for invalid form submission', () => {
+  test('shows error messages on invalid form submission', async () => {
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    )
+
     fireEvent.click(screen.getByText(BUTTON.LOGIN_BUTTON))
 
-    expect(screen.getByText('Email is required')).toBeInTheDocument()
-    expect(screen.getByText('Password is required')).toBeInTheDocument()
+    expect(await screen.findByText(LOGIN.EMAIL_ERROR_REQUIRED)).toBeInTheDocument()
+    expect(await screen.findByText(LOGIN.PASSWORDL_ERROR_REQUIRED)).toBeInTheDocument()
   })
 
-  test('calls login function with correct data on valid form submission', () => {
-    fireEvent.change(screen.getByLabelText(LOGIN.EMAIL_LABEL), {
-      target: { value: 'test@test.com' },
+  test('calls login function on valid form submission', async () => {
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    )
+
+    fireEvent.input(screen.getByLabelText(LOGIN.EMAIL_LABEL), {
+      target: { value: 'test@test.com' }
     })
-    fireEvent.change(screen.getByLabelText(LOGIN.PASSWORD_LABEL), {
-      target: { value: 'password123' },
+    fireEvent.input(screen.getByLabelText(LOGIN.PASSWORD_LABEL), {
+      target: { value: 'test123' }
     })
+
     fireEvent.click(screen.getByText(BUTTON.LOGIN_BUTTON))
 
-    expect(mockLogin).toHaveBeenCalledWith({
-      email: 'test@test.com',
-      password: 'password123',
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: 'test123'
+      })
     })
   })
 })
