@@ -60,7 +60,7 @@ const Card: React.FC<ItemProps> = ({
           <Button
             type="primary"
             onClick={onIncrement}
-            onKeyDown={(e) => handleKeyDown(e, onDecrement)}
+            onKeyDown={(e) => handleKeyDown(e, onIncrement)}
             aria-label="Increase quantity"
           >
             {BUTTON.INCREMENT_BUTTON}
@@ -74,7 +74,7 @@ const Card: React.FC<ItemProps> = ({
           type="outline"
           onKeyDown={(e) => handleKeyDown(e, () => onRemove(id))}
           onClick={() => onRemove(id)}
-          aria-label={`Reamove ${title}`}
+          aria-label={`Remove ${title}`}
         >
           {BUTTON.REMOVE_BUTTON}
         </Button>

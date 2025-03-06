@@ -1,14 +1,11 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from '../lib/components/Navbar/Navbar'
-import useAuth from '../lib/hooks/useAuth'
 import { ProtectedRoute } from './ProtectedRoute'
 import Login from '../components/Login/Login'
 const Cart = React.lazy(() => import('../components/Cart/Cart'))
 
 const AppRoutes: React.FC = () => {
-  const { isAuthenticated } = useAuth()
-  console.log('isAuthenticated', isAuthenticated)
   return (
     <>
       <Navbar />

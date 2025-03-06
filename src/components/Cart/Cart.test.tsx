@@ -20,9 +20,6 @@ describe('Cart Component', () => {
       isLoading: false,
       error: null,
       setCartId: jest.fn(),
-      addToCart: function (): void {
-        throw new Error('Function not implemented.')
-      },
     })
   })
 
@@ -76,4 +73,6 @@ describe('Cart Component', () => {
 
     expect(screen.getByText('Your cart is empty')).toBeInTheDocument()
   })
+
+  // renders the total price
 })

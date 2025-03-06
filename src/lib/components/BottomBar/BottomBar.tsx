@@ -13,7 +13,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ totalPrice, onClick }) => {
   return (
     <BottomBarContainer>
       <Total>
-        {BOTTOMBAR.TOTAL} {totalPrice}
+        {BOTTOMBAR.TOTAL}: {totalPrice}
       </Total>
       <Button type="secondary" onClick={onClick}>
         {BUTTON.CHECKOUT_BUTTON}

@@ -14,6 +14,11 @@ describe('Login Component', () => {
   })
 
   test('renders login form', () => {
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    )
 
     expect(screen.getByText(LOGIN.HEADER)).toBeInTheDocument()
     expect(screen.getByLabelText(LOGIN.EMAIL_LABEL)).toBeInTheDocument()

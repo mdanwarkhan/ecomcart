@@ -11,7 +11,7 @@ describe('BottomBar Component', () => {
   })
 
   test('renders the total price', () => {
-    const totalElement = screen.getByText(`${BOTTOMBAR.TOTAL} ${totalPrice}`)
+    const totalElement = screen.getByText(`${BOTTOMBAR.TOTAL}: ${totalPrice}`)
     expect(totalElement).toBeInTheDocument()
   })
 
