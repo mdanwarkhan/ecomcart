@@ -3,7 +3,7 @@ import { Item } from '../types/Cart'
 import { Product } from '../types/Product'
 
 describe('mapProducts', () => {
-  it('should map products correctly when response status is fulfilled', () => {
+  test('should map products correctly when response status is fulfilled', () => {
     const productsResponse = [
       {
         status: 'fulfilled',
@@ -40,7 +40,7 @@ describe('mapProducts', () => {
     expect(result).toEqual(expectedProducts)
   })
 
-  it('should return null for products with response status not fulfilled', () => {
+  test('should return null for products with response status not fulfilled', () => {
     const productsResponse = [
       {
         status: 'fulfilled',
@@ -68,7 +68,7 @@ describe('mapProducts', () => {
     expect(result).toEqual(expectedProducts)
   })
 
-  it('should handle empty productsResponse', () => {
+  test('should handle empty productsResponse', () => {
     const productsResponse: any[] = []
     const cartItems: Item[] = []
 

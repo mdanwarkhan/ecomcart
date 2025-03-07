@@ -74,5 +74,45 @@ describe('Cart Component', () => {
     expect(screen.getByText('Your cart is empty')).toBeInTheDocument()
   })
 
-  // renders the total price
+  test('displays total price of the cart', () => {
+    expect(screen.getByText('Total: ₹500.00')).toBeInTheDocument()
+  })
+
+  test('handles loading state', () => {
+    mockUseCart.mockReturnValueOnce({
+      ...mockUseCart(),
+      isLoading: true,
+    })
+
+    render(
+      <MemoryRouter>
+        <Cart />
+      </MemoryRouter>
+    )
+
+    expect(screen.getByTestId('spinner')).toBeInTheDocument()
+  })
+
+  test('handles error state', () => {
+    mockUseCart.mockReturnValueOnce({
+      ...mockUseCart(),
+      error: {
+        isAxiosError: true,
+        response: undefined,
+        name: '',
+        message: '',
+        toJSON: function (): object {
+          throw new Error('network Error')
+        }
+      },
+    })
+
+    render(
+      <MemoryRouter>
+        <Cart />
+      </MemoryRouter>
+    )
+
+    expect(screen.getByText('An unexpected error occurred')).toBeInTheDocument()
+  })
 })

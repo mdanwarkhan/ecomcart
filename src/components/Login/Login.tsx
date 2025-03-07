@@ -40,9 +40,10 @@ const Login: React.FC = () => {
           })}
           id="email"
           placeholder={LOGIN.EMAIL_PLACEHOLDER}
+          aria-label="Email"
         />
 
-        <ErrorMessage>{errors.email?.message}</ErrorMessage>
+        <ErrorMessage role='alert' aria-live='assertive'>{errors.email?.message}</ErrorMessage>
 
         <InputLabel htmlFor="password">{LOGIN.PASSWORD_LABEL}</InputLabel>
         <InputField
@@ -55,8 +56,9 @@ const Login: React.FC = () => {
           id="password"
           type='password'
           placeholder={LOGIN.PASSWORD_PLACEHOLDER}
+          aria-label="Password"
         />
-        <ErrorMessage>{errors.password?.message}</ErrorMessage>
+        <ErrorMessage role='alert' aria-live='assertive'>{errors.password?.message}</ErrorMessage>
         <Button type="primary">{BUTTON.LOGIN_BUTTON}</Button>
       </Form>
     </FormContainer>

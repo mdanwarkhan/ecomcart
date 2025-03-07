@@ -43,7 +43,7 @@ const Card: React.FC<ItemProps> = ({
   }
 
   return (
-    <CardContainer>
+    <CardContainer role="group" aria-labelledby={`card-title-${id}`}>
       <CardLeft>
         <Image src={image} alt={title} />
         <QuantityControls>
@@ -56,7 +56,7 @@ const Card: React.FC<ItemProps> = ({
           >
             {BUTTON.DECREMENT_BUTTON}
           </Button>
-          <span>{quantity}</span>
+          <span aria-live="polite">{quantity}</span>
           <Button
             type="primary"
             onClick={onIncrement}
@@ -68,7 +68,7 @@ const Card: React.FC<ItemProps> = ({
         </QuantityControls>
       </CardLeft>
       <CardRight>
-        <Title>{title}</Title>
+        <Title id={`card-title-${id}`}>{title}</Title>
         <Price>{priceFormatter(price, quantity)}</Price>
         <Button
           type="outline"

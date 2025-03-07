@@ -5,12 +5,13 @@ import { useCallback, useEffect, useState } from 'react'
 import Loader from '../../lib/components/Loader/Loader'
 import BottomBar from '../../lib/components/BottomBar/BottomBar'
 import { priceFormatter } from '../../lib/utils/priceFormatter'
-import { errorFormatter } from '../../lib/utils/errorFormatter'
 import { useParams } from 'react-router-dom'
 import { MODAL } from '../../lib/constants'
 import { Col, Container, Row } from '../../lib/styles/Grid.style'
 import { ErrorText } from '../../lib/styles/Error.style'
 import EmptyCart from '../../lib/components/EmptyCart/EmptyCart'
+import formatAxiosError from '../../lib/utils/axiosErrorFormatter'
+import { isAxiosError } from 'axios'
 
 function Cart() {
   const [showModal, setShowModal] = useState(false)
@@ -68,8 +69,8 @@ function Cart() {
     <Container>
       <Row>
         <Col size={12}>
-          {error instanceof Error && (
-            <ErrorText>{errorFormatter(error)}</ErrorText>
+          {error && isAxiosError(error) && (
+            <ErrorText>{formatAxiosError(error)}</ErrorText>
           )}
           {cart?.length > 0 &&
             !isLoading &&

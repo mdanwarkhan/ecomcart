@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Product } from '../../lib/types/Product'
 import { Item } from '../../lib/types/Cart'
 import { fetchCart, fetchProducts } from '../../lib/services/cartService'
+import { AxiosError } from 'axios'
 
 interface CartContextType {
   cart: Product[]
@@ -11,7 +12,7 @@ interface CartContextType {
   updateProductQuantity: (productId: number, productCount: number) => void
   getTotalPrice: () => number
   isLoading: boolean
-  error: Error | null
+  error: AxiosError | null
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -30,7 +31,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({
     data: cartProducts,
     isLoading: isCartLoading,
     error: cartError,
-  } = useQuery<Item[], Error>({
+  } = useQuery<Item[], AxiosError>({
     queryKey: ['cart', cartId],
     queryFn: () => fetchCart(cartId),
     retry: false,
@@ -41,7 +42,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({
     data: products,
     isLoading: isProductLoading,
     error: productsError,
-  } = useQuery<Product[], Error>({
+  } = useQuery<Product[], AxiosError>({
     queryKey: ['products', cartProducts],
     queryFn: () =>
       cartProducts ? fetchProducts(cartProducts) : Promise.resolve([]),

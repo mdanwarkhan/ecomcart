@@ -20,7 +20,9 @@ export const API_ERROR = {
   403: 'Forbidden access (403). You do not have permission.',
   404: 'The requested resource was not found (404).',
   500: 'Internal server error (500). Please try again later.',
-  DEFAULT: 'Unexpected error occurred (status code:',
+  NETWORK: 'Network error or timeout occurred',
+  UNEXPECTED_SERVER: 'Unexpected server error occurred.',
+  UNEXPECTED: 'An unexpected error occurred'
 }
 
 export const MODAL = {
