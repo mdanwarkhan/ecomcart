@@ -8,4 +8,6 @@ export const EmptyCartContainer = styled.div`
   padding: 20px;
   color: #333;
   border: 2px solid #ccc;
+  margin-top: 10%;
+  margin-bottom: 20%;
 `

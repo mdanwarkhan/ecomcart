@@ -1,20 +1,11 @@
 import React, { createContext, ReactNode, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Product } from '../../lib/types/Product'
-import { Item } from '../../lib/types/Cart'
+import { CartContextType, Item } from '../../lib/types/Cart'
 import { fetchCart, fetchProducts } from '../../lib/services/cartService'
 import { AxiosError } from 'axios'
 
-interface CartContextType {
-  cart: Product[]
-  setCartId: (id: number) => void
-  removeFromCart: (id: number) => void
-  updateProductQuantity: (productId: number, productCount: number) => void
-  getTotalPrice: () => number
-  isLoading: boolean
-  error: AxiosError | null
-}
-
+// Create the context with an undefined default value
 export const CartContext = createContext<CartContextType | undefined>(undefined)
 
 interface CartProviderProps {
@@ -27,6 +18,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({
   const [cart, setCart] = React.useState<Product[]>([])
   const [cartId, setCartId] = React.useState<number>(0)
 
+  // Fetch the cart products based on the cart ID
   const {
     data: cartProducts,
     isLoading: isCartLoading,
@@ -38,6 +30,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({
     enabled: !!cartId,
   })
 
+  // Fetch the product details based on the cart products
   const {
     data: products,
     isLoading: isProductLoading,
@@ -49,19 +42,23 @@ export const CartProvider: React.FC<CartProviderProps> = ({
     enabled: !!cartProducts && cartProducts.length > 0,
   })
 
+  // Determine if data is loading or if there is an error
   const isLoading = isCartLoading || isProductLoading
   const error = cartError || productsError
 
+  // Update the cart state when products data changes
   useEffect(() => {
     if (products) {
       setCart(products)
     }
   }, [products])
 
+  // Function to remove a product from the cart
   const removeFromCart = (id: number) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id))
   }
 
+  // Function to update the quantity of a product in the cart
   const updateProductQuantity = (productId: number, productCount: number) => {
     setCart((prevCart) =>
       prevCart.map((product) =>
@@ -72,10 +69,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({
     )
   }
 
+  // Function to calculate the total price of the cart
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)
   }
 
+  // Provide the context values to the children components
   return (
     <CartContext.Provider
       value={{

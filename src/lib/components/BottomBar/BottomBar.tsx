@@ -8,8 +8,6 @@ interface BottomBarProps {
   onClick: () => void
 }
 const BottomBar: React.FC<BottomBarProps> = ({ totalPrice, onClick }) => {
-  // throw new Error('Not implemented')
-
   return (
     <BottomBarContainer>
       <Total>

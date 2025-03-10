@@ -1,17 +1,8 @@
-import React, { createContext, ReactNode, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { User } from '../../lib/types/User'
+import { AuthContextType, AuthProviderProps } from '../../lib/types/Auth'
 
-interface AuthContextType {
-  isAuthenticated: boolean
-  user?: User | null
-  login: (user: User) => void
-  logout: () => void
-}
-
-interface AuthProviderProps {
-  children: ReactNode
-}
-
+// Create the context with an undefined default value
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({
@@ -24,6 +15,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     return user ? true : false
   })
 
+  // Function to log in the user
   const login = (user: User) => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user))
@@ -31,13 +23,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     }
   }
 
+  // Function to log out the user
   const logout = () => {
     localStorage.removeItem('user')
     setIsAuthenticated(false)
   }
+
+  // Provide the context values to the children components
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {' '}
       {children}
     </AuthContext.Provider>
   )
